@@ -22,7 +22,9 @@ def Q1(k, cf, right_lim):
     """
 
     def integrand(u):
-        return np.real((np.exp(-u * k * 1j) / (u * 1j)) * cf(u - 1j) / cf(-1.0000000000001j))
+        return np.real(
+            (np.exp(-u * k * 1j) / (u * 1j)) * cf(u - 1j) / cf(-1.0000000000001j)
+        )
 
     return 1 / 2 + 1 / np.pi * quad(integrand, 1e-15, right_lim, limit=2000)[0]
 
@@ -82,7 +84,8 @@ def VG_pdf(x, T, c, theta, sigma, kappa):
         2
         * np.exp(theta * (x - c) / sigma**2)
         / (kappa ** (T / kappa) * np.sqrt(2 * np.pi) * sigma * scps.gamma(T / kappa))
-        * ((x - c) ** 2 / (2 * sigma**2 / kappa + theta**2)) ** (T / (2 * kappa) - 1 / 4)
+        * ((x - c) ** 2 / (2 * sigma**2 / kappa + theta**2))
+        ** (T / (2 * kappa) - 1 / 4)
         * scps.kv(
             T / kappa - 1 / 2,
             sigma ** (-2) * np.sqrt((x - c) ** 2 * (2 * sigma**2 / kappa + theta**2)),
@@ -110,7 +113,12 @@ def NIG_pdf(x, T, c, theta, sigma, kappa):
     """
     A = theta / (sigma**2)
     B = np.sqrt(theta**2 + sigma**2 / kappa) / sigma**2
-    C = T / np.pi * np.exp(T / kappa) * np.sqrt(theta**2 / (kappa * sigma**2) + 1 / kappa**2)
+    C = (
+        T
+        / np.pi
+        * np.exp(T / kappa)
+        * np.sqrt(theta**2 / (kappa * sigma**2) + 1 / kappa**2)
+    )
     return (
         C
         * np.exp(A * (x - c * T))

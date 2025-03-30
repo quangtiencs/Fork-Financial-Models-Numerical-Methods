@@ -43,7 +43,12 @@ def cf_mert(u, t=1, mu=1, sig=2, lam=0.8, muJ=0, sigJ=0.5):
     sigJ: jump size standard deviation
     """
     return np.exp(
-        t * (1j * u * mu - 0.5 * u**2 * sig**2 + lam * (np.exp(1j * u * muJ - 0.5 * u**2 * sigJ**2) - 1))
+        t
+        * (
+            1j * u * mu
+            - 0.5 * u**2 * sig**2
+            + lam * (np.exp(1j * u * muJ - 0.5 * u**2 * sigJ**2) - 1)
+        )
     )
 
 
@@ -55,7 +60,13 @@ def cf_VG(u, t=1, mu=0, theta=-0.1, sigma=0.2, kappa=0.1):
     sigma: Brownian motion diffusion
     kappa: Gamma process variance
     """
-    return np.exp(t * (1j * mu * u - np.log(1 - 1j * theta * kappa * u + 0.5 * kappa * sigma**2 * u**2) / kappa))
+    return np.exp(
+        t
+        * (
+            1j * mu * u
+            - np.log(1 - 1j * theta * kappa * u + 0.5 * kappa * sigma**2 * u**2) / kappa
+        )
+    )
 
 
 def cf_NIG(u, t=1, mu=0, theta=-0.1, sigma=0.2, kappa=0.1):
@@ -67,7 +78,12 @@ def cf_NIG(u, t=1, mu=0, theta=-0.1, sigma=0.2, kappa=0.1):
     kappa: Inverse Gaussian process variance
     """
     return np.exp(
-        t * (1j * mu * u + 1 / kappa - np.sqrt(1 - 2j * theta * kappa * u + kappa * sigma**2 * u**2) / kappa)
+        t
+        * (
+            1j * mu * u
+            + 1 / kappa
+            - np.sqrt(1 - 2j * theta * kappa * u + kappa * sigma**2 * u**2) / kappa
+        )
     )
 
 
@@ -80,7 +96,9 @@ def cf_Heston(u, t, v0, mu, kappa, theta, sigma, rho):
     g1 = (xi + d) / (xi - d)
     cf = np.exp(
         1j * u * mu * t
-        + (kappa * theta) / (sigma**2) * ((xi + d) * t - 2 * np.log((1 - g1 * np.exp(d * t)) / (1 - g1)))
+        + (kappa * theta)
+        / (sigma**2)
+        * ((xi + d) * t - 2 * np.log((1 - g1 * np.exp(d * t)) / (1 - g1)))
         + (v0 / sigma**2) * (xi + d) * (1 - np.exp(d * t)) / (1 - g1 * np.exp(d * t))
     )
     return cf
@@ -96,7 +114,9 @@ def cf_Heston_good(u, t, v0, mu, kappa, theta, sigma, rho):
     g2 = 1 / g1
     cf = np.exp(
         1j * u * mu * t
-        + (kappa * theta) / (sigma**2) * ((xi - d) * t - 2 * np.log((1 - g2 * np.exp(-d * t)) / (1 - g2)))
+        + (kappa * theta)
+        / (sigma**2)
+        * ((xi - d) * t - 2 * np.log((1 - g2 * np.exp(-d * t)) / (1 - g2)))
         + (v0 / sigma**2) * (xi - d) * (1 - np.exp(-d * t)) / (1 - g2 * np.exp(-d * t))
     )
     return cf

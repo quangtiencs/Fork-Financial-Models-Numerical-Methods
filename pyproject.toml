@@ -8,15 +8,19 @@ version = "1.0.0"
 authors = [{ name = "cantaro86", email = "nicolacantarutti@gmail.com" }]
 description = "Library for the code used in the FMNM notebooks."
 readme = "README.md"
-requires-python = ">=3.8"
-dynamic = ["dependencies"]
-
-[tool.setuptools.dynamic]
-dependencies = {file = ["list_of_packages.txt"]}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-namespaces = false  # prevent folders without __init__.py from being scanned
-
-[project.urls]
-"Homepage" = "https://github.com/cantaro86/Financial-Models-Numerical-Methods"
+requires-python = ">=3.12"
+dependencies = [
+    "arch",
+    "black>=25.1.0",
+    "cvxpy",
+    "cython",
+    "jupyter",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "scipy",
+    "seaborn",
+    "statsmodels",
+    "sympy",
+]
